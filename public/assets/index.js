@@ -63,3 +63,33 @@ var deleteNote = function(id) {
       renderActiveNote();
     });
   };
+
+  var handleNoteView = function() {
+    activeNote = $(this).data();
+    renderActiveNote();
+  };
+  
+  // enter new note
+
+  var handleNewNoteView = function() {
+    activeNote = {};
+    renderActiveNote();
+  };
+  
+// Gets notes from the database
+var getAndRenderNotes = function() {
+    return getNotes().then(function(data) {
+      renderNoteList(data);
+    });
+  };
+  
+  $saveNoteBtn.on("click", handleNoteSave);
+  $noteList.on("click", ".list-group-item", handleNoteView);
+  $newNoteBtn.on("click", handleNewNoteView);
+  $noteList.on("click", ".delete-note", handleNoteDelete);
+  $noteTitle.on("keyup", handleRenderSaveBtn);
+  $noteText.on("keyup", handleRenderSaveBtn);
+  
+  // Gets/renders notes
+  
+  getAndRenderNotes();
